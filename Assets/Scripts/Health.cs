@@ -3,24 +3,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] private float maxHealth;
-    [SerializeField] private Animator _animatorController;
+    [SerializeField] private float _maxHealth;
+    private Animator _animatorController;
 
     private float _currentHealth;
-    private bool _isDead = false;
+    private bool _isDead;
     private GameController _gameController;
-
-
-    private void Awake()
-    {
-        _currentHealth = maxHealth;
-        _gameController = GameController.instance;
-        _animatorController = GetComponent<Animator>();
-    }
 
     public bool Dead
     {
         get { return _isDead; }
+    }
+
+    private void Awake()
+    {
+        _currentHealth = _maxHealth;
+        _gameController = GameController.instance;
+        _animatorController = GetComponent<Animator>();
     }
 
     public void TakeDamage(float amount)
@@ -42,7 +41,7 @@ public class Health : MonoBehaviour
             return 0;
         }
 
-        return _currentHealth / maxHealth;
+        return _currentHealth / _maxHealth;
     }
 
     private void Die()
@@ -53,7 +52,7 @@ public class Health : MonoBehaviour
         StartCoroutine(EndAction());
     }
 
-    IEnumerator EndAction()
+    private IEnumerator EndAction()
     {
         yield return new WaitForSeconds(2f);
 

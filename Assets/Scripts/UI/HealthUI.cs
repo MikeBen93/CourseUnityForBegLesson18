@@ -7,9 +7,7 @@ public class HealthUI : MonoBehaviour
 {
     [SerializeField] private Image _healthBarImage;
     [SerializeField] private Health _playerHealth;
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         SetHealthBar();
     }

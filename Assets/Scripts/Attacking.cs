@@ -16,6 +16,14 @@ public class Attacking : MonoBehaviour
     private Health _health;
     private Health _enemyHealth;
 
+    public LayerMask LayerToAttackValue
+    {
+        get
+        {
+            return _enemyLayers.value;
+        }
+    }
+
     private void Start()
     {
         _health = GetComponent<Health>();
@@ -86,11 +94,5 @@ public class Attacking : MonoBehaviour
         _automaticAttackIsOn = automaticAttackState;
     }
 
-    public LayerMask LayerToAttackValue
-    {
-        get
-        {
-            return _enemyLayers.value;
-        }
-    }
+    
 }

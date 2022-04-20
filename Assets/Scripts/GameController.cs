@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("More than one BuildManager in scene");
+            Debug.LogError("More than one GameController in scene");
             return;
         }
         instance = this;

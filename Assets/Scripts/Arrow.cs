@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float _arrowDamage = 10.0f;
     private float _arrowSpeed;
     private Rigidbody2D _arrowRG;
+
     private void Awake()
     {
         _arrowRG = GetComponent<Rigidbody2D>();
@@ -14,11 +15,11 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if(collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponentInParent<Health>().TakeDamage(_arrowDamage);
-        }
+        } 
+
         Destroy(gameObject);
     }
 
@@ -26,6 +27,5 @@ public class Arrow : MonoBehaviour
     {
         _arrowSpeed = speed;
         _arrowRG.velocity = new Vector2(_arrowSpeed, 0);
-
     }
 }

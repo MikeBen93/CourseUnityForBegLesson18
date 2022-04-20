@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D _playerRB2D;
-
     [Header("Movement vars")]
     [SerializeField] private float speed = 6f;
     [SerializeField] private float jumpForce = 10f;
@@ -19,9 +17,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AnimationCurve curve;
 
     private Animator _playerAnimator;
+    private Rigidbody2D _playerRB2D;
+    private Health _playerHealth;
 
-    private bool _isJumping = false;
-    private bool _facingRight = true;  // For determining which way the player is currently facing.
+    private bool _isJumping;
+    private bool _facingRight;  // For determining which way the player is currently facing.
 
     public bool IsFacingRight
     {
@@ -30,10 +30,15 @@ public class PlayerMovement : MonoBehaviour
             return _facingRight;
         }
     }
+
     private void Awake()
     {
         _playerRB2D = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<Animator>();
+        _playerHealth = GetComponent<Health>();
+
+        _isJumping = false;
+        _facingRight = true;
     }
 
     private void FixedUpdate()
@@ -41,13 +46,13 @@ public class PlayerMovement : MonoBehaviour
         _touchedGround = Physics2D.OverlapCircle(groundColliderTransform.position, jumpOffsetRadius, groundMask);
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void Move(float horizontalDirection, bool jumpPressed)
     {
+        if(_playerHealth.Dead)
+        {
+            return;
+        }
+
         if(jumpPressed && _touchedGround)
         {
             Jump();

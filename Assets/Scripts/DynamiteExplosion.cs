@@ -14,7 +14,7 @@ public class DynamiteExplosion : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Explosion());
         }
@@ -30,9 +30,7 @@ public class DynamiteExplosion : MonoBehaviour
 
         GameObject effect = Instantiate(explosionEffect, transform.position, Quaternion.identity);
 
-        Debug.Log("Destroy(effect);");
         Destroy(effect, 3f);
-        Debug.Log("Destroy(gameObject);");
         Destroy(gameObject);
     }
 }

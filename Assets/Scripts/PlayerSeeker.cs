@@ -8,7 +8,7 @@ public class PlayerSeeker : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (LayerMask.GetMask(LayerMask.LayerToName(collision.gameObject.layer)) == _attacking.LayerToAttackValue)
+        if (GetMaskOfCollsion(collision) == _attacking.LayerToAttackValue)
         {
             _attacking.SetAutomaticAttack(true);
         }
@@ -16,10 +16,18 @@ public class PlayerSeeker : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (LayerMask.GetMask(LayerMask.LayerToName(collision.gameObject.layer)) == _attacking.LayerToAttackValue)
+        if (GetMaskOfCollsion(collision) == _attacking.LayerToAttackValue)
         {
-            Debug.Log("Lost player");
             _attacking.SetAutomaticAttack(false);
         }
+    }
+
+    private int GetMaskOfCollsion(Collider2D inputCollision)
+    {
+        var gameObjectLayer = inputCollision.gameObject.layer;
+
+        var layername = LayerMask.LayerToName(gameObjectLayer);
+
+        return LayerMask.GetMask(layername);
     }
 }

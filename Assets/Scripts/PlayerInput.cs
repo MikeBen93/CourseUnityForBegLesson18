@@ -11,6 +11,13 @@ public class PlayerInput : MonoBehaviour
     private float _horizontalDirection = 0f;
     private bool _isJumpButtonPressed = false;
 
+    public float HorizontalDirection
+    {
+        get
+        {
+            return _horizontalDirection;
+        }
+    }
 
     private void Start()
     {
@@ -21,18 +28,16 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        _horizontalDirection = Input.GetAxis(GlobalStringVars.HORIZONTAL_AXIS);
-        _isJumpButtonPressed = Input.GetButtonDown(GlobalStringVars.JUMP);
+        _horizontalDirection = Input.GetAxis(GlobalStringVars.HorizontalAxis);
+        _isJumpButtonPressed = Input.GetButtonDown(GlobalStringVars.Jump);
 
-        if(Input.GetButtonDown(GlobalStringVars.FIRE_1))
+        if(Input.GetButtonDown(GlobalStringVars.Fire1))
         {
-            //_shooting.Shoot(_horizontalDirection);
             _playerAnimator.SetTrigger("Shooting");
         }
 
-        if (Input.GetButtonDown(GlobalStringVars.FIRE_2))
+        if (Input.GetButtonDown(GlobalStringVars.Fire2))
         {
-            //_shooting.Shoot(_horizontalDirection);
             _playerAnimator.SetTrigger("Attacking");
         }
 
@@ -40,11 +45,5 @@ public class PlayerInput : MonoBehaviour
     }
 
 
-    public float HorizontalDirection
-    {
-        get
-        {
-            return _horizontalDirection;
-        }
-    }
+
 }
