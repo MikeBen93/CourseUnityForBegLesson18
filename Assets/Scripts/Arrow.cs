@@ -15,9 +15,9 @@ public class Arrow : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if(collision.gameObject.TryGetComponent<Health>(out var health))
         {
-            collision.gameObject.GetComponentInParent<Health>().TakeDamage(_arrowDamage);
+            health.TakeDamage(_arrowDamage);
         } 
 
         Destroy(gameObject);

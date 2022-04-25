@@ -10,6 +10,9 @@ public class Health : MonoBehaviour
     private bool _isDead;
     private GameController _gameController;
 
+    public delegate void HealthHandler(float healthRatio);
+    public event HealthHandler HealthNotifier;
+
     public bool Dead
     {
         get { return _isDead; }
@@ -25,6 +28,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(float amount)
     {
         _currentHealth -= amount;
+        HealthNotifier?.Invoke(_currentHealth / _maxHealth);
 
         //play hurt animation
 

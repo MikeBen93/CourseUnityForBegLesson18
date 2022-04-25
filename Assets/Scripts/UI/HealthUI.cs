@@ -7,13 +7,14 @@ public class HealthUI : MonoBehaviour
 {
     [SerializeField] private Image _healthBarImage;
     [SerializeField] private Health _playerHealth;
-    private void Update()
+
+    private void Awake()
     {
-        SetHealthBar();
+        _playerHealth.HealthNotifier += SetHealthBar;
     }
 
-    private void SetHealthBar()
+    private void SetHealthBar(float ratio)
     {
-        _healthBarImage.fillAmount = _playerHealth.GetHealthRatio();
+        _healthBarImage.fillAmount = ratio;
     }
 }
