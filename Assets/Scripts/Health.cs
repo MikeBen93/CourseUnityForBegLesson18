@@ -8,10 +8,12 @@ public class Health : MonoBehaviour
 
     private float _currentHealth;
     private bool _isDead;
-    private GameController _gameController;
 
     public delegate void HealthHandler(float healthRatio);
     public event HealthHandler HealthNotifier;
+
+    public delegate void DeathHandler();
+    public event DeathHandler DeathNotifier;
 
     public bool Dead
     {
@@ -21,7 +23,6 @@ public class Health : MonoBehaviour
     private void Awake()
     {
         _currentHealth = _maxHealth;
-        _gameController = GameController.instance;
         _animatorController = GetComponent<Animator>();
     }
 
@@ -60,15 +61,7 @@ public class Health : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
-        if (gameObject.CompareTag("Player"))
-        {
-            _gameController.EndGame();
-        }
-
-        if (gameObject.CompareTag("Enemy"))
-        {
-            Destroy(gameObject);
-        }
+        DeathNotifier?.Invoke();
     }
 }
 
